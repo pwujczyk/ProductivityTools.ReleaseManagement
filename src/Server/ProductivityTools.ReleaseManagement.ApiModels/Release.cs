@@ -4,9 +4,11 @@ using System.Text;
 
 namespace ProductivityTools.ReleaseManagement.ApiModels
 {
-    class Release
+    public class Release
     {
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
+
+        public List<Event> Events { get; set; }
     }
 }

@@ -16,6 +16,9 @@ namespace ProductivityTools.ReleaseManagement.Api.Controllers
         public ActionResult<Calendar> Get()
         {
             var result = new Calendar() { Start = DateTime.Now, End = DateTime.Now };
+            result.Releases = new List<ApiModels.Release>();
+            result.Releases.Add(new Release() { Start = DateTime.Now, End = DateTime.Now });
+            result.Releases.Add(new Release() { Start = DateTime.Now, End = DateTime.Now });
             return result;
         }
 

@@ -7,6 +7,8 @@ class CalendarTable extends Component{
 	constructor(props){
 		super(props)
 		
+		this.getMonday=this.getMonday.bind(this);
+		this.getDayNumber=this.getDayNumber.bind(this);
 		
 	}
 	
@@ -17,33 +19,20 @@ class CalendarTable extends Component{
 		return new Date(d.setDate(diff));
 	}
 
+	getDayNumber(day,shift){
+		var r=new Date(day.setDate(day.getDate() + shift)).getDate();
+		return r;
+	}
 	
 	render(){
-	
-		var rows = [];
 		debugger;
-		var now = new Date();
-		var daysOfYear = [];
-		for (var d = new Date(2018, 0, 1); d <= now; d.setDate(d.getDate() + 1)) {
-				let monday=d.getDate()
-				let tuesday=new Date(d.setDate(d.getDate() + 1)).getDate();
-				let wendesday=new Date(d.setDate(d.getDate() + 1)).getDate();
-				let thursday=new Date(d.setDate(d.getDate() + 1)).getDate();
-				let friday=new Date(d.setDate(d.getDate() + 1)).getDate();
-				let saturday=new Date(d.setDate(d.getDate() + 1)).getDate();
-				let sunday=new Date(d.setDate(d.getDate() + 1)).getDate();
-			    rows.push(<tr>
-							<td>{monday}</td>
-							<td>{tuesday}</td>
-							<td>{wendesday}</td>	
-							<td>{thursday}</td>
-							<td>{friday}</td>
-							<td>{saturday}</td>
-							<td>{sunday}</td>			
-				</tr>)
-				
-				
+		const {start,end}=this.props		
+		let firstDayOfRange=this.getMonday(start)	
+		const mondays=[];
+		for (var d = new Date(firstDayOfRange); d <= new Date(end); d.setDate(d.getDate() + 7)) {
+			mondays.push(new Date(d));
 		}
+			
 				
 		return(
 			<table>
@@ -56,29 +45,61 @@ class CalendarTable extends Component{
 					<th>Saturday</th>
 					<th>Sunday</th>
 				</tr>
-				{rows}
+				{mondays.map((day)=>
+				<tr>
+							<td>{this.getDayNumber(day,0)}</td>
+							<td>{this.getDayNumber(day,1)}</td>
+							<td>{this.getDayNumber(day,1)}</td>
+							<td>{this.getDayNumber(day,1)}</td>
+							<td>{this.getDayNumber(day,1)}</td>
+							<td>{this.getDayNumber(day,1)}</td>
+							<td>{this.getDayNumber(day,1)}</td>
+								
+				</tr>)
+				}
 			</table>
 		)
 	}
 }
 
 class App extends Component {
+	
+	constructor(props){
+		super(props)
+		
+		this.state={
+		calendar:null
+		}
+		
+		this.fetchReleases=this.fetchReleases.bind(this);
+		this.setReleases=this.setReleases.bind(this);
+	}
+
+  componentDidMount() {
+	  debugger;
+    this.fetchReleases();
+  }
+  
+  fetchReleases(){
+	  fetch(`https://localhost:44372/api/calendar/`)
+      .then(response => response.json())
+      .then(result => this.setReleases(result))
+      .catch(error => error);
+  }
+  
+  setReleases(calendar){
+	  this.setState({calendar})
+  }
+	
+	
   render() {
+	const {calendar}=this.state;
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <CalendarTable/>
-          </a>
+		{calendar?
+            <CalendarTable start={calendar.start} end={calendar.end}/>
+		:null}
         </header>
       </div>
     );

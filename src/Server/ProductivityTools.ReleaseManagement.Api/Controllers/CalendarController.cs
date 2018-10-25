@@ -15,10 +15,10 @@ namespace ProductivityTools.ReleaseManagement.Api.Controllers
         [HttpGet]
         public ActionResult<Calendar> Get()
         {
-            var result = new Calendar() { Start = DateTime.Now.AddMonths(-2), End = DateTime.Now };
-            result.Releases = new List<ApiModels.Release>();
-            result.Releases.Add(new Release() { Start = DateTime.Now.AddMonths(-1), End = DateTime.Now });
-            result.Releases.Add(new Release() { Start = DateTime.Now, End = DateTime.Now });
+            var result = new Calendar() { Start = DateTime.Now.AddMonths(-1), End = DateTime.Now };
+            result.Schedules = new List<ApiModels.Schedule>();
+            result.Schedules.Add(new Schedule() { Start = DateTime.Now.AddDays(-6), End = DateTime.Now.AddDays(-1) });
+        //   result.Schedules.Add(new Schedule() { Start = DateTime.Now.AddDays(-500), End = DateTime.Now.AddDays(-400) });
             return result;
         }
 

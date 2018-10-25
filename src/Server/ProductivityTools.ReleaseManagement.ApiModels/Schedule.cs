@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ProductivityTools.ReleaseManagement.ApiModels
 {
-    public class Release
+    public class Schedule
     {
         public DateTime Start { get; set; }
         public DateTime End { get; set; }

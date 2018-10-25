@@ -2,6 +2,58 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+class SchedulesRows extends Component{
+
+
+	constructor(props){
+		super(props)
+		
+		this.dateDifferenceInDays=this.dateDifferenceInDays.bind(this)
+	}
+	
+	dateDifferenceInDays(d1, d2){
+		
+		var timeDiff = Math.abs(d2.getTime() - d1.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+		return diffDays;
+	}
+	
+	render(){
+		const {Schedules,WeekStart,WeekEnd}=this.props;
+		
+		console.log(Schedules)
+		
+		var rows=[]
+		Schedules.forEach(schedule=>
+		{
+			
+			let scheduleStart=new Date(schedule.start);
+			let scheduleEnd=new Date(schedule.end);
+			console.log(scheduleEnd,WeekStart);
+			let beginSpan=this.dateDifferenceInDays(scheduleEnd,WeekStart);
+			let fillAfter=7-beginSpan;
+			if(beginSpan>0 && beginSpan<=7)
+			{
+				rows.push
+				(
+						<td colspan={beginSpan}>{beginSpan}</td>	
+				)
+				rows.push
+				(
+						<td colspan={fillAfter}>{fillAfter}</td>	
+				)
+			}
+			
+			
+		})
+		return(
+			<tr>
+				{rows}
+			</tr>
+		)
+	}
+}
+
 class CalendarTable extends Component{
 	
 	constructor(props){
@@ -25,14 +77,33 @@ class CalendarTable extends Component{
 	}
 	
 	render(){
-		debugger;
-		const {start,end}=this.props		
+		const {start,end, schedules}=this.props		
 		let firstDayOfRange=this.getMonday(start)	
 		const mondays=[];
 		for (var d = new Date(firstDayOfRange); d <= new Date(end); d.setDate(d.getDate() + 7)) {
 			mondays.push(new Date(d));
 		}
-			
+		
+		
+		var rows=[]
+		mondays.forEach(day=>
+		{
+			let weekStart=new Date(day);
+			rows.push(
+				
+						<tr>
+							<td>{this.getDayNumber(day,0)}</td>
+							<td>{this.getDayNumber(day,1)}</td>
+							<td>{this.getDayNumber(day,1)}</td>
+							<td>{this.getDayNumber(day,1)}</td>
+							<td>{this.getDayNumber(day,1)}</td>
+							<td>{this.getDayNumber(day,1)}</td>
+							<td>{this.getDayNumber(day,1)}</td>
+						</tr>
+			)
+			let weekEnd=new Date(day);
+			rows.push(<SchedulesRows Schedules={schedules} WeekStart={weekStart} WeekEnd={weekEnd}/>)
+		})		
 				
 		return(
 			<table>
@@ -45,18 +116,7 @@ class CalendarTable extends Component{
 					<th>Saturday</th>
 					<th>Sunday</th>
 				</tr>
-				{mondays.map((day)=>
-				<tr>
-							<td>{this.getDayNumber(day,0)}</td>
-							<td>{this.getDayNumber(day,1)}</td>
-							<td>{this.getDayNumber(day,1)}</td>
-							<td>{this.getDayNumber(day,1)}</td>
-							<td>{this.getDayNumber(day,1)}</td>
-							<td>{this.getDayNumber(day,1)}</td>
-							<td>{this.getDayNumber(day,1)}</td>
-								
-				</tr>)
-				}
+				{rows}
 			</table>
 		)
 	}
@@ -76,7 +136,6 @@ class App extends Component {
 	}
 
   componentDidMount() {
-	  debugger;
     this.fetchReleases();
   }
   
@@ -98,7 +157,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
 		{calendar?
-            <CalendarTable start={calendar.start} end={calendar.end}/>
+			<CalendarTable start={calendar.start} end={calendar.end} schedules={calendar.schedules}/>
 		:null}
         </header>
       </div>

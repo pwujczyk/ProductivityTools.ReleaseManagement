@@ -26,7 +26,7 @@ class SchedulesRows extends Component{
 		var rows=[]
 		Schedules.forEach(schedule=>
 		{
-			
+			var cells=[]
 			let scheduleStart=new Date(schedule.start);
 			let scheduleEnd=new Date(schedule.end);
 			
@@ -38,12 +38,12 @@ class SchedulesRows extends Component{
 			{
 				let fillAfter=7-beginSpan;
 				debugger;
-				rows.push
+				cells.push
 				(
 					
 						<td colSpan={beginSpan}>{schedule.name}</td>	
 				)
-				rows.push
+				cells.push
 				(
 						<td colSpan={fillAfter}>filling</td>	
 				)
@@ -55,24 +55,34 @@ class SchedulesRows extends Component{
 			if(endSpan>0 && endSpan<=7)
 			{
 				let fillBefore=7-endSpan;
-				rows.push
+				cells.push
 				(
 						<td colSpan={fillBefore}>filling</td>	
 
 				)
-				
-				rows.push
+				debugger
+				cells.push
 				(
 						<td colSpan={endSpan}>{endSpan}</td>	
-
+			
+				)
+			}
+			
+			if (cells.length>0){
+				rows.push
+				(
+					<tr>
+						{cells}
+					</tr>
 				)
 			}
 			
 		})
+		debugger;
 		return(
-			<tr>
-				{rows}
-			</tr>
+		
+			rows
+			
 		)
 	}
 }

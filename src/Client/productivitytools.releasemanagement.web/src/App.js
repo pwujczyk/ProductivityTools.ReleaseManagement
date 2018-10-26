@@ -13,7 +13,7 @@ class SchedulesRows extends Component{
 	
 	dateDifferenceInDays(d1, d2){
 		
-		var timeDiff = Math.abs(d2.getTime() - d1.getTime());
+		var timeDiff =  d1.getTime() - d2.getTime();
 		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
 		return diffDays;
 	}
@@ -29,21 +29,44 @@ class SchedulesRows extends Component{
 			
 			let scheduleStart=new Date(schedule.start);
 			let scheduleEnd=new Date(schedule.end);
-			console.log(scheduleEnd,WeekStart);
+			
 			let beginSpan=this.dateDifferenceInDays(scheduleEnd,WeekStart);
-			let fillAfter=7-beginSpan;
+			console.log("scheduleEnd",scheduleEnd);
+			console.log("WeekStart",WeekStart);
+			console.log("beginSpan",beginSpan);
 			if(beginSpan>0 && beginSpan<=7)
 			{
+				let fillAfter=7-beginSpan;
+				debugger;
 				rows.push
 				(
-						<td colspan={beginSpan}>{beginSpan}</td>	
+					
+						<td colSpan={beginSpan}>{schedule.name}</td>	
 				)
 				rows.push
 				(
-						<td colspan={fillAfter}>{fillAfter}</td>	
+						<td colSpan={fillAfter}>filling</td>	
 				)
 			}
-			
+			let endSpan=this.dateDifferenceInDays(WeekEnd,scheduleStart)+1
+			console.log("WeekEnd",WeekEnd);
+			console.log("scheduleStart",scheduleStart);
+			console.log("endSpan",endSpan);
+			if(endSpan>0 && endSpan<=7)
+			{
+				let fillBefore=7-endSpan;
+				rows.push
+				(
+						<td colSpan={fillBefore}>filling</td>	
+
+				)
+				
+				rows.push
+				(
+						<td colSpan={endSpan}>{endSpan}</td>	
+
+				)
+			}
 			
 		})
 		return(

@@ -17,8 +17,10 @@ namespace ProductivityTools.ReleaseManagement.Api.Controllers
         {
             var result = new Calendar() { Start = DateTime.Now.AddMonths(-1), End = DateTime.Now };
             result.Schedules = new List<ApiModels.Schedule>();
-            result.Schedules.Add(new Schedule() { Start = DateTime.Now.AddDays(-6), End = DateTime.Now.AddDays(-1) });
-        //   result.Schedules.Add(new Schedule() { Start = DateTime.Now.AddDays(-500), End = DateTime.Now.AddDays(-400) });
+            result.Schedules.Add(new Schedule() { Name = "Release1", Start = DateTime.Now.AddDays(-6), End = DateTime.Now.AddDays(-1) });
+            result.Schedules.Add(new Schedule() { Name = "Release2", Start = DateTime.Now.AddDays(-6), End = DateTime.Now.AddDays(-1) });
+
+            //   result.Schedules.Add(new Schedule() { Start = DateTime.Now.AddDays(-500), End = DateTime.Now.AddDays(-400) });
             return result;
         }
 

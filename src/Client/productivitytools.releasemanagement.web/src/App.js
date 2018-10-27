@@ -9,6 +9,7 @@ class SchedulesRows extends Component{
 		super(props)
 		
 		this.dateDifferenceInDays=this.dateDifferenceInDays.bind(this)
+		this.createRows=this.createRows.bind(this);
 	}
 	
 	dateDifferenceInDays(d1, d2){
@@ -18,33 +19,34 @@ class SchedulesRows extends Component{
 		return diffDays;
 	}
 	
-	render(){
-		const {Schedules,WeekStart,WeekEnd}=this.props;
-		
-		console.log(Schedules)
-		
+	createRows(Schedules,WeekStart,WeekEnd)
+	{
 		var rows=[]
 		Schedules.forEach(schedule=>
 		{
+			var scheduleName=schedule.name;
+			console.log(scheduleName);
 			var cells=[]
 			let scheduleStart=new Date(schedule.start);
 			let scheduleEnd=new Date(schedule.end);
 			
-			let beginSpan=this.dateDifferenceInDays(scheduleEnd,WeekStart);
+			let beginSpan=this.dateDifferenceInDays(scheduleEnd,WeekStart)+1;
 			console.log("scheduleEnd",scheduleEnd);
 			console.log("WeekStart",WeekStart);
 			console.log("beginSpan",beginSpan);
 			if(beginSpan>0 && beginSpan<=7)
 			{
 				let fillAfter=7-beginSpan;
-				debugger;
+				console.log(scheduleName + "TD pushed")
 				cells.push
 				(
 					
 						<td colSpan={beginSpan}>{schedule.name}</td>	
 				)
+				
 				cells.push
 				(
+			
 						<td colSpan={fillAfter}>filling</td>	
 				)
 			}
@@ -52,19 +54,28 @@ class SchedulesRows extends Component{
 			console.log("WeekEnd",WeekEnd);
 			console.log("scheduleStart",scheduleStart);
 			console.log("endSpan",endSpan);
-			if(endSpan>0 && endSpan<=7)
+			if(endSpan>0 && endSpan<7)
 			{
 				let fillBefore=7-endSpan;
+				console.log(scheduleName + "TD pushed")
 				cells.push
 				(
+			
 						<td colSpan={fillBefore}>filling</td>	
 
 				)
-				debugger
 				cells.push
 				(
-						<td colSpan={endSpan}>{endSpan}</td>	
+						<td colSpan={endSpan}>{schedule.name}</td>	
 			
+				)
+			}
+			
+			if (beginSpan >7 && endSpan>=7)
+			{
+				cells.push
+				(
+						<td colSpan={7}>{schedule.name}</td>
 				)
 			}
 			
@@ -76,9 +87,25 @@ class SchedulesRows extends Component{
 					</tr>
 				)
 			}
+			var subSchedules=schedule.schedules;
+			if (subSchedules != null)
+			{
+				
+				var subScheduleRows=this.createRows(subSchedules,WeekStart,WeekEnd)
+				rows.push(subScheduleRows)
+			}
 			
 		})
-		debugger;
+		return rows;
+	};
+	
+	render(){
+		const {Schedules,WeekStart,WeekEnd}=this.props;
+		
+		console.log(Schedules)
+		
+		var rows=this.createRows(Schedules,WeekStart,WeekEnd)
+	
 		return(
 		
 			rows
@@ -140,6 +167,7 @@ class CalendarTable extends Component{
 				
 		return(
 			<table>
+			<tbody>
 				<tr>
 					<th>Monday</th>
 					<th>Tuesday</th>
@@ -150,6 +178,7 @@ class CalendarTable extends Component{
 					<th>Sunday</th>
 				</tr>
 				{rows}
+					</tbody>
 			</table>
 		)
 	}

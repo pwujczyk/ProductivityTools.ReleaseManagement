@@ -11,5 +11,7 @@ namespace ProductivityTools.ReleaseManagement.ApiModels
         public DateTime End { get; set; }
 
         public List<Event> Events { get; set; }
+
+        public List<Schedule> Schedules { get; set; }
     }
 }

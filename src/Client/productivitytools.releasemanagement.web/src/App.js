@@ -2,6 +2,17 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+class ReleaseList extends Component{
+	constructor(props){
+		super(props)
+	}
+	
+	render(){
+		return(<div>pawel</div>);
+	}
+	
+}
+
 class SchedulesRows extends Component{
 
 
@@ -106,10 +117,8 @@ class SchedulesRows extends Component{
 		
 		var rows=this.createRows(Schedules,WeekStart,WeekEnd)
 	
-		return(
-		
+		return(	
 			rows
-			
 		)
 	}
 }
@@ -219,7 +228,10 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
 		{calendar?
-			<CalendarTable start={calendar.start} end={calendar.end} schedules={calendar.schedules}/>
+			<div>
+				<CalendarTable start={calendar.start} end={calendar.end} schedules={calendar.schedules}/>
+				<ReleaseList/>
+			</div>
 		:null}
         </header>
       </div>

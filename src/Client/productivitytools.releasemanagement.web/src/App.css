@@ -3,7 +3,6 @@
 }
 
 .App-header {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,4 +16,19 @@
 
 table, th, td {
    border: 1px solid black;
+}
+
+.container{
+    margin: auto;
+    padding: 10px;
+}
+.scheduleList{
+	width: 150px;
+    height: 200px;
+    float: left;
+}
+
+.calendarTable{
+	margin-left: 150px;
+    height: 200px;
 }

@@ -1,36 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
 import CalendarTable from './CalendarTable'
-
-class ReleaseList extends Component{
-	constructor(props){
-		super(props)
-		
-		this.handleChange=this.handleChange.bind(this);
-	}
-	
-	handleChange(event){
-		
-	}
-	
-	render(){
-		const {schedules,releaseListClick}=this.props	
-		
-		return(
-		schedules.map(item=>
-		<div>
-			<input type="checkbox" value={item.id} onChange={releaseListClick} selected={item.selected}/>
-			<label >{item.name}</label>
-		</div>)
-		);
-	}
-	
-}
+import ReleaseList from './ReleaseList'
 
 
 
 class App extends Component {
-	
 	constructor(props){
 		super(props)
 		
@@ -40,7 +15,6 @@ class App extends Component {
 		
 		this.fetchReleases=this.fetchReleases.bind(this);
 		this.setReleases=this.setReleases.bind(this);
-		this.releaseListClick=this.releaseListClick.bind(this);
 	}
 
   componentDidMount() {
@@ -67,22 +41,6 @@ class App extends Component {
 	  console.log(this.state)
   }
   
-  releaseListClick(event){
-	  debugger;
-		const {calendar}=this.state;
-		calendar.schedules.forEach(schedule=>
-		{
-			if(schedule.id==event.target.value)
-			{
-				debugger;
-				schedule.selected=!event.target.selected;
-			}
-		})
-		this.setState(calendar:{schedules:schedules});
-		console.log(event.target.value);
-		console.log('handlechange')
-  }
-	
 	
   render() {
 	const {calendar}=this.state;
@@ -91,8 +49,7 @@ class App extends Component {
         <header className="App-header">
 		{calendar?
 			<div>
-				<CalendarTable start={calendar.start} end={calendar.end} schedules={calendar.schedules}/>
-				<ReleaseList schedules={calendar.schedules} releaseListClick={this.releaseListClick}/>
+				<ReleaseList calendar={calendar}/>
 			</div>
 		:null}
         </header>

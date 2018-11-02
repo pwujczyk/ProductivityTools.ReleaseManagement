@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 
+	
+function isChecked(){
+	return function(item){
+		return item.selected
+		console.log("isChecked");
+	}
+}
 
 class SchedulesRows extends Component{
 
@@ -17,11 +24,12 @@ class SchedulesRows extends Component{
 		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
 		return diffDays;
 	}
+
 	
 	createRows(Schedules,WeekStart,WeekEnd)
 	{
 		var rows=[]
-		Schedules.forEach(schedule=>
+		Schedules.filter(isChecked()).forEach(schedule=>
 		{
 			var scheduleName=schedule.name;
 			console.log(scheduleName);

@@ -17,17 +17,17 @@ namespace ProductivityTools.ReleaseManagement.Api.Controllers
         {
             var result = new Calendar() { Start = DateTime.Now.AddMonths(-1), End = DateTime.Now };
             result.Schedules = new List<ApiModels.Schedule>();
-            var s1 = new Schedule() { Name = "Release1", Start = DateTime.Now.AddDays(-20), End = DateTime.Now.AddDays(-10) };
-            var s2 = new Schedule() { Name = "Release2", Start = DateTime.Now.AddDays(-19), End = DateTime.Now.AddDays(-10) };
-            var s3 = new Schedule() { Name = "Release3", Start = DateTime.Now.AddDays(-18), End = DateTime.Now.AddDays(-10) };
-            var s4 = new Schedule() { Name = "Release4", Start = DateTime.Now.AddDays(-17), End = DateTime.Now.AddDays(-10) };
-            var s5 = new Schedule() { Name = "Release5", Start = DateTime.Now.AddDays(-16), End = DateTime.Now.AddDays(-10) };
-            var s6 = new Schedule() { Name = "Release6", Start = DateTime.Now.AddDays(-15), End = DateTime.Now.AddDays(-10) };
-            var s7 = new Schedule() { Name = "Release7", Start = DateTime.Now.AddDays(-14), End = DateTime.Now.AddDays(-10) };
+            var s1 = new Schedule() { Id=1, Name = "Release1", Start = DateTime.Now.AddDays(-20), End = DateTime.Now.AddDays(-10) };
+            var s2 = new Schedule() { Id = 2, Name = "Release2", Start = DateTime.Now.AddDays(-19), End = DateTime.Now.AddDays(-10) };
+            var s3 = new Schedule() { Id = 3, Name = "Release3", Start = DateTime.Now.AddDays(-18), End = DateTime.Now.AddDays(-10) };
+            var s4 = new Schedule() { Id = 4, Name = "Release4", Start = DateTime.Now.AddDays(-17), End = DateTime.Now.AddDays(-10) };
+            var s5 = new Schedule() { Id = 5, Name = "Release5", Start = DateTime.Now.AddDays(-16), End = DateTime.Now.AddDays(-10) };
+            var s6 = new Schedule() { Id = 6, Name = "Release6", Start = DateTime.Now.AddDays(-15), End = DateTime.Now.AddDays(-10) };
+            var s7 = new Schedule() { Id = 7, Name = "Release7", Start = DateTime.Now.AddDays(-14), End = DateTime.Now.AddDays(-10) };
 
 
             s1.Schedules = new List<Schedule>();
-            s1.Schedules.Add(new Schedule() { Name = "SubRelease1", Start = DateTime.Now.AddDays(-15), End = DateTime.Now.AddDays(-2) });
+            s1.Schedules.Add(new Schedule() { Id = 8, Name = "SubRelease1", Start = DateTime.Now.AddDays(-15), End = DateTime.Now.AddDays(-2) });
             result.Schedules.Add(s1);
             result.Schedules.Add(s2);
             result.Schedules.Add(s3);

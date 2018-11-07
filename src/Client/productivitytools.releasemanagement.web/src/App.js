@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import CalendarTable from './CalendarTable'
+
 import ReleaseList from './ReleaseList'
 
 
@@ -32,7 +32,7 @@ class App extends Component {
 	  let schedulesupdated=calendar.schedules.map((item)=>
 	  {
 		  return {
-			  ...item, selected:(false)
+			  ...item, selected:(true)
 		  }
 	  });
 

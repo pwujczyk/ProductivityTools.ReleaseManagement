@@ -6,6 +6,10 @@ namespace ProductivityTools.ReleaseManagement.ApiModels
 {
     public class Schedule
     {
+        public Schedule()
+        {
+            this.Schedules = new List<Schedule>();
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime Start { get; set; }

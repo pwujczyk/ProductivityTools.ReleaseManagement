@@ -36,11 +36,11 @@ class SchedulesRows extends Component{
 			var cells=[]
 			let scheduleStart=new Date(schedule.start);
 			let scheduleEnd=new Date(schedule.end);
-			
 			let beginSpan=this.dateDifferenceInDays(scheduleEnd,WeekStart)+1;
 			console.log("scheduleEnd",scheduleEnd);
 			console.log("WeekStart",WeekStart);
 			console.log("beginSpan",beginSpan);
+			debugger;
 			if(beginSpan>0 && beginSpan<=7)
 			{
 				let fillAfter=7-beginSpan;
@@ -57,7 +57,7 @@ class SchedulesRows extends Component{
 						<td colSpan={fillAfter}>filling</td>	
 				)
 			}
-			let endSpan=this.dateDifferenceInDays(WeekEnd,scheduleStart)+1
+			let endSpan=this.dateDifferenceInDays(WeekEnd,scheduleStart)
 			console.log("WeekEnd",WeekEnd);
 			console.log("scheduleStart",scheduleStart);
 			console.log("endSpan",endSpan);
@@ -93,7 +93,7 @@ class SchedulesRows extends Component{
 						{cells}
 					</tr>
 				)
-			}
+			} 
 			var subSchedules=schedule.schedules;
 			if (subSchedules != null)
 			{

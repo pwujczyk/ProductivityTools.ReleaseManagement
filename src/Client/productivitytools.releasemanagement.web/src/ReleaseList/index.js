@@ -41,7 +41,6 @@ class ReleaseList extends Component{
 	
 	render(){
 		const {calendar}=this.props	
-		debugger;
 		return(
 		<div class="container">
 			<div class="scheduleList">

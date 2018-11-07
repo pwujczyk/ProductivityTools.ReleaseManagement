@@ -15,15 +15,17 @@ namespace ProductivityTools.ReleaseManagement.Api.Controllers
         [HttpGet]
         public ActionResult<Calendar> Get()
         {
-            var result = new Calendar() { Start = DateTime.Now.AddMonths(-2), End = DateTime.Now.AddMonths(1) };
+            var result = new Calendar() { Start = DateTime.Parse("2018.10.10"), End = DateTime.Parse("2018.10.30"), };
             result.Schedules = new List<ApiModels.Schedule>();
-            var release102 = new Schedule() { Id=1, Name = "Release 10.2", Start =DateTime.Parse("2018.10.10"), End = DateTime.Parse("2018.12.06") };
-            var release102QAonReleaseCandidate= new Schedule() { Id = 2, Name = "QA - Release Candidate", Start = DateTime.Parse("2018.11.22"), End = DateTime.Parse("2018.12.28") };
-            release102.Schedules.Add(release102QAonReleaseCandidate);
+            var release102 = new Schedule() { Id=1, Name = "Release 10.2", Start =DateTime.Parse("2018.10.10"), End = DateTime.Parse("2018.10.17") };
+            var release102QAonReleaseCandidate= new Schedule() { Id = 2, Name = "QA - Release Candidate", Start = DateTime.Parse("2018.10.17"), End = DateTime.Parse("2018.10.20") };
+            //release102.Schedules.Add(release102QAonReleaseCandidate);
 
             var release102QAonReleaseGated = new Schedule() { Id = 2, Name = "QA - Release Gated", Start = DateTime.Parse("2018.11.29"), End = DateTime.Parse("2018.12.04") };
-            release102.Schedules.Add(release102QAonReleaseGated);
+            //release102.Schedules.Add(release102QAonReleaseGated);
 
+
+            var release103 = new Schedule() { Id = 2, Name = "Release 10.3", Start = DateTime.Parse("2018.10.18"), End = DateTime.Parse("2018.10.20") };
 
             var s2 = new Schedule() { Id = 2, Name = "Release2", Start = DateTime.Now.AddDays(-19), End = DateTime.Now.AddDays(-10) };
             var s3 = new Schedule() { Id = 3, Name = "Release3", Start = DateTime.Now.AddDays(-18), End = DateTime.Now.AddDays(-10) };
@@ -34,6 +36,7 @@ namespace ProductivityTools.ReleaseManagement.Api.Controllers
 
 
             result.Schedules.Add(release102);
+            result.Schedules.Add(release103);
             //result.Schedules.Add(s2);
             //result.Schedules.Add(s3);
             //result.Schedules.Add(s4);

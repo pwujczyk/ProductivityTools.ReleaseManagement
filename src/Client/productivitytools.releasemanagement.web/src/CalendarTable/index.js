@@ -29,80 +29,49 @@ class SchedulesRows extends Component{
 	createRows(Schedules,WeekStart,WeekEnd)
 	{
 		var rows=[]
+		var emptyWeek=[-1,-1,-1,-1,-1,-1,-1]
 		Schedules.filter(isChecked()).forEach(schedule=>
 		{
-			var scheduleName=schedule.name;
-			console.log(scheduleName);
-			var cells=[]
+			
 			let scheduleStart=new Date(schedule.start);
 			let scheduleEnd=new Date(schedule.end);
-			let beginSpan=this.dateDifferenceInDays(scheduleEnd,WeekStart)+1;
-			console.log("scheduleEnd",scheduleEnd);
-			console.log("WeekStart",WeekStart);
-			console.log("beginSpan",beginSpan);
-			debugger;
-			if(beginSpan>0 && beginSpan<=7)
-			{
-				let fillAfter=7-beginSpan;
-				console.log(scheduleName + "TD pushed")
-				cells.push
-				(
-					
-						<td colSpan={beginSpan}>{schedule.name}</td>	
-				)
-				
-				cells.push
-				(
+			let scheduleFirstDay=7-this.dateDifferenceInDays(WeekEnd,scheduleStart); //day inclusive
+			let endSpan=this.dateDifferenceInDays(scheduleEnd,WeekStart)+1;
 			
-						<td colSpan={fillAfter}>filling</td>	
-				)
+debugger;
+			let maxI=7;
+			if (endSpan<7)
+			{
+				maxI=endSpan;
 			}
-			let endSpan=this.dateDifferenceInDays(WeekEnd,scheduleStart)
-			console.log("WeekEnd",WeekEnd);
-			console.log("scheduleStart",scheduleStart);
-			console.log("endSpan",endSpan);
-			if(endSpan>0 && endSpan<7)
+			for(var i=scheduleFirstDay;i<=maxI;i++)
 			{
-				let fillBefore=7-endSpan;
-				console.log(scheduleName + "TD pushed")
-				cells.push
-				(
-			
-						<td colSpan={fillBefore}>filling</td>	
-
-				)
-				cells.push
-				(
-						<td colSpan={endSpan}>{schedule.name}</td>	
-			
-				)
-			}
-			
-			if (beginSpan >7 && endSpan>=7)
-			{
-				cells.push
-				(
-						<td colSpan={7}>{schedule.name}</td>
-				)
-			}
-			
-			if (cells.length>0){
-				rows.push
-				(
-					<tr>
-						{cells}
-					</tr>
-				)
-			} 
-			var subSchedules=schedule.schedules;
-			if (subSchedules != null)
-			{
-				
-				var subScheduleRows=this.createRows(subSchedules,WeekStart,WeekEnd)
-				rows.push(subScheduleRows)
+				emptyWeek[i-1]=schedule.id;
 			}
 			
 		})
+		var cells=[]
+		let span=1;
+		for(var i=0;i<7;i++)
+		{
+			if (emptyWeek[i]==emptyWeek[i+1]){
+				span++;
+			}
+			else{
+				cells.push(<td colSpan={span}>{emptyWeek[i]}</td>)
+				span=1;
+			}
+		}
+
+
+		if (cells.length>0){
+			rows.push
+			(
+				<tr>
+					{cells}
+				</tr>
+			)
+		} 
 		return rows;
 	};
 	

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+    import React, { Component } from 'react';
 
 
 function isChecked() {
@@ -37,7 +37,7 @@ class SchedulesRows extends Component {
             let scheduleFirstDay = 7 - this.dateDifferenceInDays(WeekEnd, scheduleStart); //day inclusive
             let endSpan = this.dateDifferenceInDays(scheduleEnd, WeekStart) + 1;
 
-            debugger;
+            
             let maxI = 7;
             if (endSpan < 7) {
                 maxI = endSpan;
@@ -61,8 +61,7 @@ class SchedulesRows extends Component {
             }
         }
 
-
-        if (cells.length > 0) {
+        if (cells.length ==1 && cells[0].props.children !="") {
             rows.push
                 (
                 <tr>
@@ -70,6 +69,16 @@ class SchedulesRows extends Component {
                 </tr>
                 )
         }
+
+        if (cells.length >1) {
+            rows.push
+                (
+                <tr>
+                    {cells}
+                </tr>
+                )
+        }
+        
 		
 		
 		 Schedules.filter(isChecked()).forEach(schedule => {
